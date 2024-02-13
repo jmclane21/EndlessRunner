@@ -1,3 +1,7 @@
+/** Samurai Run by Jackson McLane
+ *  Inspired by Samurai Blitz by Studio Thunderhorse
+ */
+
 let config  = {
     type: Phaser.AUTO,
     width: 640,
@@ -5,15 +9,16 @@ let config  = {
     physics: {
         default: 'arcade',
         arcade: {
+            gravity: {y: 2600},
             debug: true
         },
     },
-    scene: [ Play ]
+    scene: [ Menu, Play ]
 }
 
 let game = new Phaser.Game(config);
 //reserved keyboard bindings
-let keyFIRE, keyRESET, keyLEFT, keyRIGHT
+let keySPACE, keyJ, keyRESET
 
 //set UI sizes
 let borderUISize = game.config.height / 15
