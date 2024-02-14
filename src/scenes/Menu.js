@@ -31,12 +31,29 @@ class Menu extends Phaser.Scene{
         let keycode = Phaser.Input.Keyboard.KeyCodes
         keySPACE = keyboardInput.addKey(keycode.SPACE)
         keyJ = keyboardInput.addKey(keycode.J)
+
+        this.anims.create({
+            key: 'run',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('samurai', { start: 0, end: 3 }),
+        })
+
+        this.anims.create({
+            key: 'attack',
+            frameRate: 15,
+            frames: this.anims.generateFrameNumbers('samurai', { frames: [4, 5, 6, 6, 5, 4] }),
+        })
     }
 
     preload(){
         this.load.image('forest', './assets/forest.png')
-        this.load.image('samurai', './assets/samurai.png')
+        this.load.spritesheet('samurai', './assets/samurai.png', {
+            frameWidth: 32,
+            frameHeight: 32
+        })
         this.load.image('grass', './assets/grass.png')
+        this.load.image('demon', './assets/demon.png')
     }
 
     update(){

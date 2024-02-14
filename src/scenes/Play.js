@@ -12,7 +12,7 @@ class Play extends Phaser.Scene{
         this.floor.body.setImmovable()
         this.floor.body.allowGravity = false
         //add player obj
-        this.samurai = new Samurai(this, 32, game.config.height - 150, 'samurai').setOrigin(0,0).setScale(2.5)
+        this.samurai = new Samurai(this, 32, game.config.height - 150, 'samurai', 0).setOrigin(0,0).setScale(2.5)
 
         //add enemy objs
 

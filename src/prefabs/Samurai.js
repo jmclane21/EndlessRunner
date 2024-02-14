@@ -12,6 +12,23 @@ class Samurai extends Phaser.GameObjects.Sprite{
 
     update(){
 
+        //check attacing
+        if(!this.isAttacking && Phaser.Input.Keyboard.JustDown(keyJ)){
+            let hitbox = this.scene.physics.add.body(this.x + this.width+25, this.y + (this.height/2) + 10, 50, 20)
+            hitbox.allowGravity = false
+            this.anims.play('attack', true)
+            this.isAttacking = true
+            this.once('animationcomplete', () => {
+                this.isAttacking = false
+                this.anims.play('run', true)
+                hitbox.destroy()
+            })
+        }
+
+        if(!this.isAttacking){
+            this.anims.play('run', true)
+        }
+
         //check if grounded to check if they can jump/double jump
         this.isGrounded = this.body.touching.down
         if(this.isGrounded){
@@ -38,10 +55,5 @@ class Samurai extends Phaser.GameObjects.Sprite{
 	    	this.isJumping = false
 	    }
 
-        //check attacing
-        if(!this.isAttacking && Phaser.Input.Keyboard.JustDown(keyJ)){
-            
-            this.isAttacking = true
-        }
     }
 }
