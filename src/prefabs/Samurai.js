@@ -3,25 +3,31 @@ class Samurai extends Phaser.GameObjects.Sprite{
         super(scene, x, y, texture, frame)
         scene.add.existing(this)
         scene.physics.add.existing(this)
-
+        this.hitPoints = 3
         this.isJumping = false
         this.isAttacking = false
         this.MAX_JUMPS = 2
         this.jumps = 2
+        //hitbox for swings
+        this.hitbox = scene.physics.add.sprite(-100, -100, '').setAlpha(0)
+        this.hitbox.setOrigin(0,0)
+        this.hitbox.body.setSize((this.width*2),this.height*2)
+        this.hitbox.body.allowGravity = false
     }
 
     update(){
-
-        //check attacing
+        if(this.isAttacking){
+            this.hitbox.setPosition(this.x+this.width, this.y+20)
+        }
+        //check attacking
         if(!this.isAttacking && Phaser.Input.Keyboard.JustDown(keyJ)){
-            let hitbox = this.scene.physics.add.body(this.x + this.width+25, this.y + (this.height/2) + 10, 50, 20)
-            hitbox.allowGravity = false
+            this.hitbox.setPosition(this.x+this.width, this.y+20)
             this.anims.play('attack', true)
             this.isAttacking = true
             this.once('animationcomplete', () => {
+                this.hitbox.setPosition(-100,-100)
                 this.isAttacking = false
                 this.anims.play('run', true)
-                hitbox.destroy()
             })
         }
 

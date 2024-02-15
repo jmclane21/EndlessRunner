@@ -20,9 +20,9 @@ class Menu extends Phaser.Scene{
         }
 
         //display menu text
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'Samurai Run', 
+        this.add.text(game.config.width/2, game.config.height/2 - 90, 'Samurai Run', 
         menuConfig).setOrigin(0.5)
-        this.add.text(game.config.width/2, game.config.height/2, 'Use Spacebar to jump & (J) to strike\nPress button to start', menuConfig).
+        this.add.text(game.config.width/2, game.config.height/2, 'Use Spacebar to jump & (J) to strike\nPress button to start\nTAB for Credits', menuConfig).
         setOrigin(0.5)
         menuConfig.backgroundColor = '#00FF00'
         menuConfig.color = '#000'
@@ -31,27 +31,30 @@ class Menu extends Phaser.Scene{
         let keycode = Phaser.Input.Keyboard.KeyCodes
         keySPACE = keyboardInput.addKey(keycode.SPACE)
         keyJ = keyboardInput.addKey(keycode.J)
+        keyTAB = keyboardInput.addKey(keycode.TAB)
 
         this.anims.create({
             key: 'run',
             frameRate: 8,
-            repeat: -1,
-            frames: this.anims.generateFrameNumbers('samurai', { start: 0, end: 3 }),
+            repeat: 0,
+            frames: this.anims.generateFrameNames('samurai_atlas', {
+                prefix: 'walk',
+                start: 0,
+                end: 3
+            })
         })
 
         this.anims.create({
             key: 'attack',
             frameRate: 15,
-            frames: this.anims.generateFrameNumbers('samurai', { frames: [4, 5, 6, 6, 5, 4] }),
+            frames: this.anims.generateFrameNumbers('samurai_atlas', { frames: [
+                'attack0', 'attack1', 'attack2', 'attack2', 'attack1', 'attack0'] }),
         })
     }
 
     preload(){
         this.load.image('forest', './assets/forest.png')
-        this.load.spritesheet('samurai', './assets/samurai.png', {
-            frameWidth: 32,
-            frameHeight: 32
-        })
+        this.load.atlas('samurai_atlas', './assets/samurai_atlas.png', './assets/samurai_atlas.json')
         this.load.image('grass', './assets/grass.png')
         this.load.image('demon', './assets/demon.png')
     }
@@ -60,6 +63,9 @@ class Menu extends Phaser.Scene{
         this.forest.tilePositionX += 1
         if(Phaser.Input.Keyboard.JustDown(keyJ) || Phaser.Input.Keyboard.JustDown(keySPACE)){
             this.scene.start('playScene')
+        }
+        if(Phaser.Input.Keyboard.JustDown(keyTAB)){
+            this.scene.start('creditsScene')
         }
     }
 }
