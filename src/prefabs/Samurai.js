@@ -21,6 +21,7 @@ class Samurai extends Phaser.GameObjects.Sprite{
         }
         //check attacking
         if(!this.isAttacking && Phaser.Input.Keyboard.JustDown(keyJ)){
+            this.scene.sound.play('sword_swing')
             this.hitbox.setPosition(this.x+this.width, this.y+20)
             this.anims.play('attack', true)
             this.isAttacking = true

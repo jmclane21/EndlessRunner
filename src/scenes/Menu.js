@@ -4,6 +4,13 @@ class Menu extends Phaser.Scene{
     }
 
     create(){
+        let backgroundMusic = this.sound.add('background_music')
+        backgroundMusic.loop = true
+        if(!musicPlaying){
+            backgroundMusic.play()
+            musicPlaying = true
+        }
+        
         this.forest = this.add.tileSprite(0,0,640,480, 'forest').setOrigin(0,0)
 
         let menuConfig = {
@@ -57,14 +64,21 @@ class Menu extends Phaser.Scene{
         this.load.atlas('samurai_atlas', './assets/samurai_atlas.png', './assets/samurai_atlas.json')
         this.load.image('grass', './assets/grass.png')
         this.load.image('demon', './assets/demon.png')
+        this.load.audio('hurt', './assets/hit.wav')
+        this.load.audio('menu_select', './assets/menu_select.wav')
+        this.load.audio('demon_death','./assets/demon_death.wav')
+        this.load.audio('sword_swing', './assets/sword_swing.wav')
+        this.load.audio('background_music', './assets/8-bit-game_music.mp3')
     }
 
     update(){
         this.forest.tilePositionX += 1
         if(Phaser.Input.Keyboard.JustDown(keyJ) || Phaser.Input.Keyboard.JustDown(keySPACE)){
+            this.sound.play('menu_select')
             this.scene.start('playScene')
         }
         if(Phaser.Input.Keyboard.JustDown(keyTAB)){
+            this.sound.play('menu_select')
             this.scene.start('creditsScene')
         }
     }

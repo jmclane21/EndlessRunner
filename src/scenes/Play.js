@@ -4,6 +4,7 @@ class Play extends Phaser.Scene{
     }
 
     create(){
+
         //make background
         this.forest = this.add.tileSprite(0,0,640,480, 'forest').setOrigin(0,0)
 
@@ -92,10 +93,14 @@ class Play extends Phaser.Scene{
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or Tab for Credits',
             this.scoreConfig).setOrigin(0.5)
             this.demon1.body.velocity.x = 0
+            this.demon2.body.velocity.x = 0
+            this.demon3.body.velocity.x = 0
             if(Phaser.Input.Keyboard.JustDown(keyRESET)){
+                this.sound.play('menu_select')
                 this.scene.restart()
             }
             if(Phaser.Input.Keyboard.JustDown(keyTAB)){
+                this.sound.play('menu_select')
                 this.scene.start('creditsScene')
             }
         }
@@ -105,7 +110,7 @@ class Play extends Phaser.Scene{
         demon.reset()
         this.score += demon.points
         this.scoreLeft.text = 'Score:' + this.score
-        demon.moveSpeed += 10
+        this.sound.play('demon_death')
     }
 
     hitSamurai(samurai, demon){
@@ -116,6 +121,7 @@ class Play extends Phaser.Scene{
             this.gameover = true
         }
         samurai.setTint('0xDE0000')
+        this.sound.play('hurt')
         samurai.on('animationcomplete', () => {
             samurai.clearTint()
         })
