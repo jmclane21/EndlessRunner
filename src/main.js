@@ -11,6 +11,16 @@
  * 
  *  Another slight detail is that while the background does not actually have paralax, 
  *  the drawing I made fakes it by having varying sizes of trees :P
+ * 
+ *  Links to outside tools/assets:
+ *  8-bit Game by moodmode
+ *  https://pixabay.com/music/video-games-8-bit-game-158815/
+ * 
+ *  ChipTone by SFB Games
+ *  https://sfbgames.itch.io/chiptone
+ * 
+ *  Samurai Blitz by Studio ThunderHorse
+ *  https://thunderhorse.co/samurai-blitz/
  */
 
 let config  = {
